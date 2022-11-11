@@ -1,0 +1,79 @@
+﻿@using com.necsws.healthcareportal.Models
+@model List<DoctorModel>
+
+@{
+    ViewBag.Title = "ViewDoctorsInfo";
+}
+@*<h2 style="text-align:center" ">Doctor's Information</h2>*@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Example</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <h2 style="text-align:center">Doctor's Information</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">DoctorID</th>
+                <th scope="col">IMA_NO</th>
+                <th scope="col">FullName</th>
+                <th scope="col">Gender</th>
+                <th scope="col">YearsOfExperience</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DoctorID</td>
+                    <td>@item.IMA_NO</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Gender</td>
+                    <td>@item.YearsOfExperience</td>
+                </tr>
+            }
+            @*<tr>
+                    <td>@Html.ActionLink("Physician", "Physician", "ViewServices")</td>
+                    <td>Doctor related to fever,viral infections</td>
+
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Pediatrician", "Pediatrician", "ViewServices")</td>
+                    <td>Kid's Doctor'</td>
+
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Neuro","Neuro", "ViewServices")</td>
+                    <td>Doctor of Brain nerves</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Dentist", "Dentist", "ViewServices")</td>
+                    <td>Doctor of Dental problems</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("ENT", "ENT", "ViewServices")</td>
+                    <td>Doctor of thyroid issues</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Cardiologist", "Cardiologist", "ViewServices")</td>
+                    <td>Doctor of Heart problems</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Ayurvedic", "Ayurvedic", "ViewServices")</td>
+                    <td>Doctor of herbs</td>
+                </tr>*@
+
+
+        </tbody>
+    </table>
+
+
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+</body>
+</html>

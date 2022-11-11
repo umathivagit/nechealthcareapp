@@ -1,0 +1,1047 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Appointment_ID" />
+          </Key>
+          <Property Name="Appointment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_ID" Type="int" Nullable="false" />
+          <Property Name="Service_ID" Type="int" Nullable="false" />
+          <Property Name="Doctor_ID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Symptoms" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Appointment_Status" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Created_At" Type="datetime" Nullable="false" />
+          <Property Name="Modified_At" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IMA_No" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="YearsOfExperience" Type="int" Nullable="false" />
+          <Property Name="Created_Date" Type="datetime" />
+          <Property Name="Modified_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Doctor_Qualification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qualification_ID" Type="int" Nullable="false" />
+          <Property Name="Doctor_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctor_Services">
+          <Key>
+            <PropertyRef Name="Doc_Service_ID" />
+          </Key>
+          <Property Name="Doc_Service_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Service_ID" Type="int" Nullable="false" />
+          <Property Name="Doctor_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModeOfPayment">
+          <Key>
+            <PropertyRef Name="PaymentModeID" />
+          </Key>
+          <Property Name="PaymentModeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentModeName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="HealthInsuranceID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmergencyContactPersonDetails" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Created_At" Type="datetime" Nullable="false" />
+          <Property Name="Modified_At" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PatientDoctorDetails">
+          <Key>
+            <PropertyRef Name="Patient_Doctor_ID" />
+          </Key>
+          <Property Name="Patient_Doctor_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_ID" Type="int" Nullable="false" />
+          <Property Name="Doctor_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_ID" Type="int" Nullable="false" />
+          <Property Name="ModeOfPayment" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="TransactionID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Permission_ID" />
+          </Key>
+          <Property Name="Permission_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permission_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Qualification">
+          <Key>
+            <PropertyRef Name="Qualification_ID" />
+          </Key>
+          <Property Name="Qualification_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qualification_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="Service_ID" />
+          </Key>
+          <Property Name="Service_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Service_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+          <Property Name="Active" Type="tinyint" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Appointme__Docto__44FF419A">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Patie__440B1D61">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Qu__Docto__33D4B598">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Qualification" Type="Self.Doctor_Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Qualification">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Qu__Quali__32E0915F">
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="1" />
+          <End Role="Doctor_Qualification" Type="Self.Doctor_Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Qualification">
+              <PropertyRef Name="Qualification_ID" />
+            </Principal>
+            <Dependent Role="Doctor_Qualification">
+              <PropertyRef Name="Qualification_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Se__Docto__2B3F6F97">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Se__Servi__2A4B4B5E">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Service_ID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="Service_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientDo__Docto__76969D2E">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="PatientDoctorDetails" Type="Self.PatientDoctorDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="PatientDoctorDetails">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientDo__Patie__75A278F5">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="PatientDoctorDetails" Type="Self.PatientDoctorDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PatientDoctorDetails">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__ModeOf__6E01572D">
+          <End Role="ModeOfPayment" Type="Self.ModeOfPayment" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeOfPayment">
+              <PropertyRef Name="PaymentModeID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="ModeOfPayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Patien__6D0D32F4">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__Role_ID__6383C8BA">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Service_ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Service_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_ChangePasswordByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="portal">
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_DoctorIdByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="portal">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="DoctorID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_NewDoctorRegistration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="portal">
+          <Parameter Name="IMA_No" Type="int" Mode="In" />
+          <Parameter Name="FullName" Type="varchar" Mode="In" />
+          <Parameter Name="DOB" Type="date" Mode="In" />
+          <Parameter Name="Gender" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="YearOfExperience" Type="int" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="Qualification_id" Type="int" Mode="In" />
+          <Parameter Name="Service_id" Type="int" Mode="In" />
+          <Parameter Name="Role_id" Type="int" Mode="In" />
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_NewPatientRegistration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="portal">
+          <Parameter Name="FullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOB" Type="date" Mode="In" />
+          <Parameter Name="Gender" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="BloodGroup" Type="nvarchar" Mode="In" />
+          <Parameter Name="Weight" Type="float" Mode="In" />
+          <Parameter Name="Height" Type="float" Mode="In" />
+          <Parameter Name="ContactNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="HealthInsuranceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmergencyContactPersonDetails" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_PassPatientId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="portal">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="PatientID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_ViewPatientAppointment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="portal">
+          <Parameter Name="DoctorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetDoctorListByServiceID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="reporting">
+          <Parameter Name="Service_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetServiceListByDoctorID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="reporting">
+          <Parameter Name="Doctor_ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Doctor_Qualification" EntityType="Self.Doctor_Qualification" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Doctor_Services" EntityType="Self.Doctor_Services" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="ModeOfPayment" EntityType="Self.ModeOfPayment" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="PatientDoctorDetails" EntityType="Self.PatientDoctorDetails" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="portal" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="portal" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointme__Docto__44FF419A" Association="Self.FK__Appointme__Docto__44FF419A">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Patie__440B1D61" Association="Self.FK__Appointme__Patie__440B1D61">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Qu__Docto__33D4B598" Association="Self.FK__Doctor_Qu__Docto__33D4B598">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Doctor_Qualification" EntitySet="Doctor_Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Qu__Quali__32E0915F" Association="Self.FK__Doctor_Qu__Quali__32E0915F">
+            <End Role="Qualification" EntitySet="Qualification" />
+            <End Role="Doctor_Qualification" EntitySet="Doctor_Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Se__Docto__2B3F6F97" Association="Self.FK__Doctor_Se__Docto__2B3F6F97">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Se__Servi__2A4B4B5E" Association="Self.FK__Doctor_Se__Servi__2A4B4B5E">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientDo__Docto__76969D2E" Association="Self.FK__PatientDo__Docto__76969D2E">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="PatientDoctorDetails" EntitySet="PatientDoctorDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientDo__Patie__75A278F5" Association="Self.FK__PatientDo__Patie__75A278F5">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="PatientDoctorDetails" EntitySet="PatientDoctorDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__ModeOf__6E01572D" Association="Self.FK__Payments__ModeOf__6E01572D">
+            <End Role="ModeOfPayment" EntitySet="ModeOfPayment" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Patien__6D0D32F4" Association="Self.FK__Payments__Patien__6D0D32F4">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__Role_ID__6383C8BA" Association="Self.FK__User__Role_ID__6383C8BA">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Services" Association="Self.FK_Appointment_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Appointment_ID" />
+          </Key>
+          <Property Name="Appointment_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_ID" Type="Int32" Nullable="false" />
+          <Property Name="Service_ID" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Symptoms" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Appointment_Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified_At" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Appointme__Docto__44FF419A" FromRole="Appointment" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Appointme__Patie__440B1D61" FromRole="Appointment" ToRole="Patient" />
+          <NavigationProperty Name="Service" Relationship="Self.FK_Appointment_Services" FromRole="Appointment" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IMA_No" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YearsOfExperience" Type="Int32" Nullable="false" />
+          <Property Name="Created_Date" Type="DateTime" Precision="3" />
+          <Property Name="Modified_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Docto__44FF419A" FromRole="Doctor" ToRole="Appointment" />
+          <NavigationProperty Name="Doctor_Qualification" Relationship="Self.FK__Doctor_Qu__Docto__33D4B598" FromRole="Doctor" ToRole="Doctor_Qualification" />
+          <NavigationProperty Name="Doctor_Services" Relationship="Self.FK__Doctor_Se__Docto__2B3F6F97" FromRole="Doctor" ToRole="Doctor_Services" />
+          <NavigationProperty Name="PatientDoctorDetails" Relationship="Self.FK__PatientDo__Docto__76969D2E" FromRole="Doctor" ToRole="PatientDoctorDetails" />
+        </EntityType>
+        <EntityType Name="Doctor_Qualification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qualification_ID" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Doctor_Qu__Docto__33D4B598" FromRole="Doctor_Qualification" ToRole="Doctor" />
+          <NavigationProperty Name="Qualification" Relationship="Self.FK__Doctor_Qu__Quali__32E0915F" FromRole="Doctor_Qualification" ToRole="Qualification" />
+        </EntityType>
+        <EntityType Name="Doctor_Services">
+          <Key>
+            <PropertyRef Name="Doc_Service_ID" />
+          </Key>
+          <Property Name="Doc_Service_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Service_ID" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Doctor_Se__Docto__2B3F6F97" FromRole="Doctor_Services" ToRole="Doctor" />
+          <NavigationProperty Name="Service" Relationship="Self.FK__Doctor_Se__Servi__2A4B4B5E" FromRole="Doctor_Services" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="ModeOfPayment">
+          <Key>
+            <PropertyRef Name="PaymentModeID" />
+          </Key>
+          <Property Name="PaymentModeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentModeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__ModeOf__6E01572D" FromRole="ModeOfPayment" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BloodGroup" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HealthInsuranceID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmergencyContactPersonDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created_At" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified_At" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Patie__440B1D61" FromRole="Patient" ToRole="Appointment" />
+          <NavigationProperty Name="PatientDoctorDetails" Relationship="Self.FK__PatientDo__Patie__75A278F5" FromRole="Patient" ToRole="PatientDoctorDetails" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__Patien__6D0D32F4" FromRole="Patient" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="PatientDoctorDetail">
+          <Key>
+            <PropertyRef Name="Patient_Doctor_ID" />
+          </Key>
+          <Property Name="Patient_Doctor_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_ID" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__PatientDo__Docto__76969D2E" FromRole="PatientDoctorDetails" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__PatientDo__Patie__75A278F5" FromRole="PatientDoctorDetails" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_ID" Type="Int32" Nullable="false" />
+          <Property Name="ModeOfPayment" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="TransactionID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ModeOfPayment1" Relationship="Self.FK__Payments__ModeOf__6E01572D" FromRole="Payments" ToRole="ModeOfPayment" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Payments__Patien__6D0D32F4" FromRole="Payments" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Permission_ID" />
+          </Key>
+          <Property Name="Permission_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permission_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Qualification">
+          <Key>
+            <PropertyRef Name="Qualification_ID" />
+          </Key>
+          <Property Name="Qualification_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qualification_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctor_Qualification" Relationship="Self.FK__Doctor_Qu__Quali__32E0915F" FromRole="Qualification" ToRole="Doctor_Qualification" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__Role_ID__6383C8BA" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Service_ID" />
+          </Key>
+          <Property Name="Service_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Service_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Services" FromRole="Services" ToRole="Appointment" />
+          <NavigationProperty Name="Doctor_Services" Relationship="Self.FK__Doctor_Se__Servi__2A4B4B5E" FromRole="Services" ToRole="Doctor_Services" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Byte" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__Role_ID__6383C8BA" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK__Appointme__Docto__44FF419A">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Patie__440B1D61">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Services">
+          <End Role="Services" Type="Self.Service" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Service_ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Service_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Qu__Docto__33D4B598">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Qualification" Type="Self.Doctor_Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Qualification">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Se__Docto__2B3F6F97">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientDo__Docto__76969D2E">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="PatientDoctorDetails" Type="Self.PatientDoctorDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="PatientDoctorDetails">
+              <PropertyRef Name="Doctor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Qu__Quali__32E0915F">
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="1" />
+          <End Role="Doctor_Qualification" Type="Self.Doctor_Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Qualification">
+              <PropertyRef Name="Qualification_ID" />
+            </Principal>
+            <Dependent Role="Doctor_Qualification">
+              <PropertyRef Name="Qualification_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Doctor_Se__Servi__2A4B4B5E">
+          <End Role="Services" Type="Self.Service" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Service_ID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="Service_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__ModeOf__6E01572D">
+          <End Role="ModeOfPayment" Type="Self.ModeOfPayment" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeOfPayment">
+              <PropertyRef Name="PaymentModeID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="ModeOfPayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientDo__Patie__75A278F5">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="PatientDoctorDetails" Type="Self.PatientDoctorDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PatientDoctorDetails">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Patien__6D0D32F4">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__Role_ID__6383C8BA">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthCareDBContext2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Doctor_Qualification" EntityType="Self.Doctor_Qualification" />
+          <EntitySet Name="Doctor_Services" EntityType="Self.Doctor_Services" />
+          <EntitySet Name="ModeOfPayments" EntityType="Self.ModeOfPayment" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="PatientDoctorDetails" EntityType="Self.PatientDoctorDetail" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Qualifications" EntityType="Self.Qualification" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Services" EntityType="Self.Service" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Appointme__Docto__44FF419A" Association="Self.FK__Appointme__Docto__44FF419A">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Patie__440B1D61" Association="Self.FK__Appointme__Patie__440B1D61">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Services" Association="Self.FK_Appointment_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Qu__Docto__33D4B598" Association="Self.FK__Doctor_Qu__Docto__33D4B598">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Doctor_Qualification" EntitySet="Doctor_Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Se__Docto__2B3F6F97" Association="Self.FK__Doctor_Se__Docto__2B3F6F97">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientDo__Docto__76969D2E" Association="Self.FK__PatientDo__Docto__76969D2E">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="PatientDoctorDetails" EntitySet="PatientDoctorDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Qu__Quali__32E0915F" Association="Self.FK__Doctor_Qu__Quali__32E0915F">
+            <End Role="Qualification" EntitySet="Qualifications" />
+            <End Role="Doctor_Qualification" EntitySet="Doctor_Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Doctor_Se__Servi__2A4B4B5E" Association="Self.FK__Doctor_Se__Servi__2A4B4B5E">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__ModeOf__6E01572D" Association="Self.FK__Payments__ModeOf__6E01572D">
+            <End Role="ModeOfPayment" EntitySet="ModeOfPayments" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientDo__Patie__75A278F5" Association="Self.FK__PatientDo__Patie__75A278F5">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="PatientDoctorDetails" EntitySet="PatientDoctorDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Patien__6D0D32F4" Association="Self.FK__Payments__Patien__6D0D32F4">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__Role_ID__6383C8BA" Association="Self.FK__User__Role_ID__6383C8BA">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="sp_NewDoctorRegistration">
+            <Parameter Name="IMA_No" Mode="In" Type="Int32" />
+            <Parameter Name="FullName" Mode="In" Type="String" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="YearOfExperience" Mode="In" Type="Int32" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Qualification_id" Mode="In" Type="Int32" />
+            <Parameter Name="Service_id" Mode="In" Type="Int32" />
+            <Parameter Name="Role_id" Mode="In" Type="Int32" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDoctorListByServiceID" ReturnType="Collection(Model.GetDoctorListByServiceID_Result)">
+          <Parameter Name="Service_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetServiceListByDoctorID" ReturnType="Collection(Model.GetServiceListByDoctorID_Result)">
+          <Parameter Name="Doctor_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_NewPatientRegistration">
+            <Parameter Name="FullName" Mode="In" Type="String" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="BloodGroup" Mode="In" Type="String" />
+            <Parameter Name="Weight" Mode="In" Type="Double" />
+            <Parameter Name="Height" Mode="In" Type="Double" />
+            <Parameter Name="ContactNumber" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="HealthInsuranceID" Mode="In" Type="String" />
+            <Parameter Name="EmergencyContactPersonDetails" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ViewPatientAppointment" ReturnType="Collection(Model.sp_ViewPatientAppointment_Result)">
+          <Parameter Name="DoctorID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DoctorIdByUsername" ReturnType="Collection(Int32)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="DoctorID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_PassPatientId">
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="PatientID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ChangePasswordByUsername">
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetDoctorListByServiceID_Result">
+          <Property Type="Int32" Name="DoctorID" Nullable="false" />
+          <Property Type="Int32" Name="IMA_No" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="DOB" Nullable="false" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="YearsOfExperience" Nullable="false" />
+          <Property Type="DateTime" Name="Created_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Modified_Date" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetServiceListByDoctorID_Result">
+          <Property Type="Int32" Name="Service_ID" Nullable="false" />
+          <Property Type="String" Name="Service_Name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="sp_ViewPatientAppointment_Result">
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="HealthInsuranceID" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="BloodGroup" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="EmergencyContactPersonDetails" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Date" Nullable="false" MaxLength="255" />
+          <Property Type="Time" Name="Time" Nullable="false" />
+          <Property Type="String" Name="Symptoms" Nullable="false" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="HealthCareDBContext2">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="Model.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="Appointment_ID" ColumnName="Appointment_ID" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="Service_ID" ColumnName="Service_ID" />
+                <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Symptoms" ColumnName="Symptoms" />
+                <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Modified_At" ColumnName="Modified_At" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="Model.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="IMA_No" ColumnName="IMA_No" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="YearsOfExperience" ColumnName="YearsOfExperience" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor_Qualification">
+            <EntityTypeMapping TypeName="Model.Doctor_Qualification">
+              <MappingFragment StoreEntitySet="Doctor_Qualification">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Qualification_ID" ColumnName="Qualification_ID" />
+                <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor_Services">
+            <EntityTypeMapping TypeName="Model.Doctor_Services">
+              <MappingFragment StoreEntitySet="Doctor_Services">
+                <ScalarProperty Name="Doc_Service_ID" ColumnName="Doc_Service_ID" />
+                <ScalarProperty Name="Service_ID" ColumnName="Service_ID" />
+                <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModeOfPayments">
+            <EntityTypeMapping TypeName="Model.ModeOfPayment">
+              <MappingFragment StoreEntitySet="ModeOfPayment">
+                <ScalarProperty Name="PaymentModeID" ColumnName="PaymentModeID" />
+                <ScalarProperty Name="PaymentModeName" ColumnName="PaymentModeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="Model.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HealthInsuranceID" ColumnName="HealthInsuranceID" />
+                <ScalarProperty Name="EmergencyContactPersonDetails" ColumnName="EmergencyContactPersonDetails" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+                <ScalarProperty Name="Modified_At" ColumnName="Modified_At" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientDoctorDetails">
+            <EntityTypeMapping TypeName="Model.PatientDoctorDetail">
+              <MappingFragment StoreEntitySet="PatientDoctorDetails">
+                <ScalarProperty Name="Patient_Doctor_ID" ColumnName="Patient_Doctor_ID" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="Doctor_ID" ColumnName="Doctor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="Model.Payment">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="ModeOfPayment" ColumnName="ModeOfPayment" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="Model.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="Permission_ID" ColumnName="Permission_ID" />
+                <ScalarProperty Name="Permission_Name" ColumnName="Permission_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qualifications">
+            <EntityTypeMapping TypeName="Model.Qualification">
+              <MappingFragment StoreEntitySet="Qualification">
+                <ScalarProperty Name="Qualification_ID" ColumnName="Qualification_ID" />
+                <ScalarProperty Name="Qualification_Name" ColumnName="Qualification_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="Model.Service">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="Service_ID" ColumnName="Service_ID" />
+                <ScalarProperty Name="Service_Name" ColumnName="Service_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_NewDoctorRegistration" FunctionName="Model.Store.sp_NewDoctorRegistration" />
+          <FunctionImportMapping FunctionImportName="GetDoctorListByServiceID" FunctionName="Model.Store.GetDoctorListByServiceID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetDoctorListByServiceID_Result">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="IMA_No" ColumnName="IMA_No" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="YearsOfExperience" ColumnName="YearsOfExperience" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Modified_Date" ColumnName="Modified_Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetServiceListByDoctorID" FunctionName="Model.Store.GetServiceListByDoctorID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetServiceListByDoctorID_Result">
+                <ScalarProperty Name="Service_ID" ColumnName="Service_ID" />
+                <ScalarProperty Name="Service_Name" ColumnName="Service_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_NewPatientRegistration" FunctionName="Model.Store.sp_NewPatientRegistration" />
+          <FunctionImportMapping FunctionImportName="sp_ViewPatientAppointment" FunctionName="Model.Store.sp_ViewPatientAppointment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.sp_ViewPatientAppointment_Result">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="HealthInsuranceID" ColumnName="HealthInsuranceID" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="EmergencyContactPersonDetails" ColumnName="EmergencyContactPersonDetails" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Symptoms" ColumnName="Symptoms" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DoctorIdByUsername" FunctionName="Model.Store.sp_DoctorIdByUsername" />
+          <FunctionImportMapping FunctionImportName="sp_PassPatientId" FunctionName="Model.Store.sp_PassPatientId" />
+          <FunctionImportMapping FunctionImportName="sp_ChangePasswordByUsername" FunctionName="Model.Store.sp_ChangePasswordByUsername" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

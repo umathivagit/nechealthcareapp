@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="08f3e74495fa46829bd7fbe8a063ff49" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Appointment" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Doctor" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Doctor_Qualification" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Doctor_Services" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ModeOfPayment" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Patient" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PatientDoctorDetail" Width="1.5" PointX="6" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Payment" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Permission" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Qualification" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Role" Width="1.5" PointX="8.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Service" Width="1.5" PointX="3.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="11" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__Appointme__Docto__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Appointme__Patie__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Appointment_Services" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Doctor_Qu__Docto__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Doctor_Se__Docto__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__PatientDo__Docto__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Doctor_Qu__Quali__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Doctor_Se__Servi__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Payments__ModeOf__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__PatientDo__Patie__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Payments__Patien__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__User__Role_ID__6383C8BA" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

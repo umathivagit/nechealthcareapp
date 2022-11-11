@@ -1,0 +1,8 @@
+﻿@if (TempData["PatientNotification"] != null)
+{
+    <div id="alert-box" class="alert alert-success" role="alert">
+        <a href="#" class="mark" data-dismiss="alert">&#10004;</a>
+        <strong>Success </strong> @TempData["PatientNotification"]
+    </div>
+}
+

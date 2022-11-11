@@ -1,0 +1,7 @@
+﻿@if (TempData["UserMatch"] != null)
+{
+    <p id="alert-box" class="alert alert-success" role="alert" style="width:fit-content;height:fit-content;margin-left:195px;">
+        <small class="glyphicon glyphicon-ok" data-dismiss="alert" style="color:seagreen"></small>
+        <strong>Success </strong> @TempData["UserMatch"]
+    </p>
+}

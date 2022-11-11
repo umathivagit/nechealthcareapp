@@ -1,0 +1,68 @@
+﻿
+@model com.necsws.healthcareportal.Models.Membership
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+@Html.Partial("_Patient")
+<div>
+    <h2 style="text-align:center">Login</h2> <br>
+</div>
+
+<Br />
+<br />
+<br />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal" style="margin-left:350px">
+
+    <div class="form-group">
+        <img src="~/Images/Logo11.jpg" alt="Demo For LOGO" style="height:60px; margin-left:140px;">
+    </div>
+    <br>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", Type = "Password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "margin-left:100px;font-weight:bold;" })
+    </div>
+    <div>
+        @Html.ActionLink("Forgot Password?", "ForgetPassword", "Login", new { @style = "margin-left:300px;" })
+    </div>
+
+    <div class="form-group" style="margin-left:30px">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Login" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div style="margin-left:500px">
+    @Html.ActionLink("New User? Register Here", "ChooseAccountType", "User")<br />
+
+    @*Html.ActionLink("Forgot Password?", "Signup")*@
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

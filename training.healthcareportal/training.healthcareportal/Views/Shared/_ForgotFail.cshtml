@@ -1,0 +1,8 @@
+﻿@if (TempData["UserFail"] != null)
+{
+    <p id="alert-box" class="alert alert-danger" role="alert" style="width:fit-content;height:fit-content;margin-left:195px;">
+        <small class="glyphicon glyphicon-remove" data-dismiss="alert" style="color:red"></small>
+        <strong>Ohhh! </strong> @TempData["UserFail"]
+    </p>
+}
+

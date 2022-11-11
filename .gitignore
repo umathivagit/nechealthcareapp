@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/com.necsws.healthcareportal/com.necsws.healthcareportal/App_Start/BundleConfig2.cs

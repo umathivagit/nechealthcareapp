@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32929.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "training.healthcareportal", "training.healthcareportal\training.healthcareportal.csproj", "{F68647D6-D9F8-4FF4-ACEE-2BADE1EEB860}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F68647D6-D9F8-4FF4-ACEE-2BADE1EEB860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F68647D6-D9F8-4FF4-ACEE-2BADE1EEB860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F68647D6-D9F8-4FF4-ACEE-2BADE1EEB860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F68647D6-D9F8-4FF4-ACEE-2BADE1EEB860}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15AC5C27-63DA-4A2B-B388-D1D7BDE53A65}
+	EndGlobalSection
+EndGlobal

@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace com.necsws.healthcareportal.Models
+namespace training.healthcareportal.Models
 {
     public class AppointmentViewModel
     {
@@ -17,10 +17,10 @@ namespace com.necsws.healthcareportal.Models
 
         public List<ServiceModel> Services { get; set; }
 
-        public int Service_ID { get; set; }
+        public int Service_ID { get; set; } 
 
         [Display(Name ="Doctor Name")]
-        public List<DoctorModel> Doctor_Name { get; set; }
+        public IEnumerable<DoctorModel> Doctor_Name { get; set; }
 
         public int Doctor_ID { get; set; }
 

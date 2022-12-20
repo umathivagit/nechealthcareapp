@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace com.necsws.healthcareportal.Models
+namespace training.healthcareportal.Models
 {
     public class DoctorModel
     {

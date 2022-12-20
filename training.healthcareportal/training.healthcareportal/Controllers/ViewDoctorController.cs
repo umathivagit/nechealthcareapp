@@ -1,5 +1,5 @@
-﻿using com.necsws.healthcareportal.Models;
-using com.necsws.healthcareportal.EDMX;
+﻿using training.healthcareportal.Models;
+using training.healthcareportal.EDMX;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace com.necsws.healthcareportal.Controllers
+namespace training.healthcareportal.Controllers
 {
     public class ViewDoctorController : Controller
     {

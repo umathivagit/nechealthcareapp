@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace com.necsws.healthcareportal
+namespace training.healthcareportal
 {
     public class BundleConfig
     {

@@ -1,22 +1,26 @@
-﻿using com.necsws.healthcareportal.EDMX;
+﻿using training.healthcareportal.EDMX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using com.necsws.healthcareportal.Models;
+using training.healthcareportal.Models;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace com.necsws.healthcareportal.Controllers
+namespace training.healthcareportal.Controllers
 {
     public class DoctorRegistrationController : Controller
     {
         HealthCareDBContext2 healthCareDB = new HealthCareDBContext2();
 
-        public ActionResult DoctorPage(int Doctorid)
+        [OutputCache(Duration =300, VaryByParam ="none")]
+        public ActionResult DoctorPage(string Doctorid)
         {
-            List<AppointmentViewModel> appointments = PopulateAppointmentByDoctorID(Doctorid);
+            string DecryptedDoctorId = EncryptPassword.DecryptString("b14ca5898a4e4133bbce2ea2315a1916", Doctorid);
+            //int DoctorID = (int)TempData["doctorId"];
+            //var DoctorId = EncryptPassword.DecryptString("b14ca5898a4e4133bbce2ea2315a1916", Doctorid.ToString());
+            List<AppointmentViewModel> appointments = PopulateAppointmentByDoctorID(Convert.ToInt32(DecryptedDoctorId));
             return View(appointments);
         }
         [AllowAnonymous]

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace com.necsws.healthcareportal.Models
+namespace training.healthcareportal.Models
 { 
         public class Membership
         {

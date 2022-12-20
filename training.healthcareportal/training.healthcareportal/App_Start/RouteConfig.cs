@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace com.necsws.healthcareportal
+namespace training.healthcareportal
 {
     public class RouteConfig
     {

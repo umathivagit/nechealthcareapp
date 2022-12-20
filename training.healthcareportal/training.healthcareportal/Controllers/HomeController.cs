@@ -1,5 +1,5 @@
-﻿using com.necsws.healthcareportal.EDMX;
-using com.necsws.healthcareportal.Models;
+﻿using training.healthcareportal.EDMX;
+using training.healthcareportal.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,8 +8,9 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Linq;
 
-namespace com.necsws.healthcareportal.Controllers
+namespace training.healthcareportal.Controllers
 {
     public class HomeController : Controller
     {
@@ -38,10 +39,8 @@ namespace com.necsws.healthcareportal.Controllers
         public ActionResult MakeAppointment(AppointmentViewModel makeAppointment)
         {
             Membership membership = (Membership)Session["userInfo"];
-            int patientID = (int)TempData["patientId"];
+            int patientID = (int)Session["patientId"];
             //var patientId = Session["patientInfo"];
-            if (ModelState.IsValid)
-            {
                 Appointment newAppointment = new Appointment();
                 newAppointment.Patient_ID = patientID;
                 newAppointment.Service_ID = makeAppointment.Service_ID;
@@ -58,22 +57,20 @@ namespace com.necsws.healthcareportal.Controllers
                 //ViewBag.Name = emailData.FirstName + " " + emailData.LastName;
                 SendEmail(membership.UserName, makeAppointment.Patient_Name, makeAppointment.Date, makeAppointment.Time).Wait(100);
                 return RedirectToAction("Index", "Home");
-            }
-
-            return View();
         }
 
         [HttpGet]
         public ActionResult MakeAppointment()
         {
             ViewBag.Message = "Your Appointment Page";
-
+            int patientID = (int)Session["patientId"];
             List<ServiceModel> servicelist = PopulateServices();
-            List<DoctorModel> doctorList = PopulateDoctorNames();
+            //List<DoctorModel> doctorList = PopulateDoctorNames();
 
             AppointmentViewModel currentAppointmentViewModel = new AppointmentViewModel();
+            currentAppointmentViewModel.Patient_Name = PatientNameById(patientID);
             currentAppointmentViewModel.Services = servicelist;
-            currentAppointmentViewModel.Doctor_Name = doctorList;
+            currentAppointmentViewModel.Doctor_Name = Enumerable.Empty<DoctorModel>();
 
             //new AppointmentViewModel().Services = servicelist;
             return View(currentAppointmentViewModel);
@@ -81,6 +78,38 @@ namespace com.necsws.healthcareportal.Controllers
             //return View();
         }
 
+        [HttpPost]
+        public JsonResult GetDoctors(int serviceId)
+        {
+            var doctors = PopulateDoctorNames(serviceId);
+            return Json(doctors, JsonRequestBehavior.AllowGet);
+        }
+
+
+        private static string PatientNameById(int Id)
+        {
+            string patientName = null;
+            string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " select FullName from portal.Patient where PatientID="+Id;
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            patientName = sdr["FullName"].ToString();
+                        }
+                    }
+                    con.Close();
+                }
+            }
+
+            return patientName;
+        }
         private static List<ServiceModel> PopulateServices()
         {
             List<ServiceModel> items = new List<ServiceModel>();
@@ -111,13 +140,13 @@ namespace com.necsws.healthcareportal.Controllers
         }
 
 
-        private static List<DoctorModel> PopulateDoctorNames()
+        private static List<DoctorModel> PopulateDoctorNames(int Sid)
         {
             List<DoctorModel> items = new List<DoctorModel>();
             string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = " SELECT FullName, DoctorID FROM portal.Doctor";
+                string query = " select D.FullName,D.DoctorID from portal.Doctor_Services as DS inner join portal.Doctor as D on D.DoctorID = DS.Doctor_ID where DS.Service_ID ="+Sid;
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;

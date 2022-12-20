@@ -1,4 +1,4 @@
-﻿@using com.necsws.healthcareportal.Models
+﻿@using training.healthcareportal.Models
 @model List<DoctorModel>
 
 @{
@@ -21,19 +21,21 @@
                 <th scope="col">FullName</th>
                 <th scope="col">Gender</th>
                 <th scope="col">YearsOfExperience</th>
+                <th scope="col">Make Appointment</th>
 
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.DoctorID</td>
-                    <td>@item.IMA_NO</td>
-                    <td>@item.FullName</td>
-                    <td>@item.Gender</td>
-                    <td>@item.YearsOfExperience</td>
-                </tr>
+            <tr>
+                <td>@item.DoctorID</td>
+                <td>@item.IMA_NO</td>
+                <td>@item.FullName</td>
+                <td>@item.Gender</td>
+                <td>@item.YearsOfExperience</td>
+                <td>@Html.ActionLink("Create Appointment","MakeAppointment","Home")</td>
+            </tr>
             }
             @*<tr>
                     <td>@Html.ActionLink("Physician", "Physician", "ViewServices")</td>

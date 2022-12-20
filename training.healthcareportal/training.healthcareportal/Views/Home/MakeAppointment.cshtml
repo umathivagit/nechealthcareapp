@@ -1,4 +1,4 @@
-﻿@model com.necsws.healthcareportal.Models.AppointmentViewModel
+﻿@model training.healthcareportal.Models.AppointmentViewModel
 
 @{
     ViewBag.Title = "MakeAppointment";
@@ -7,75 +7,75 @@
 <h2 class="text-center">Patient Appointment Form</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4 class="text-center text-uppercase">Make An Appointment</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Patient_Name, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.Patient_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Patient_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Services, htmlAttributes: new { @class = "control-label col-md-3" })
-                @*@Html.DropDownListFor(model => model.Services, Model.Services, new { htmlAttributes = new { @class = "form-control" } })*@
-
-                @Html.DropDownListFor(model => model.Service_ID, new SelectList(Model.Services, "ServiceId", "ServiceName"), htmlAttributes:new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.Service_ID, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4 class="text-center text-uppercase">Make An Appointment</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Patient_Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.EditorFor(model => model.Patient_Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Patient_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Doctor_Name, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.DropDownListFor(model => model.Doctor_ID, new SelectList(Model.Doctor_Name, "DoctorID", "FullName"), htmlAttributes: new { @class = "form-control" } )
-                @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Services, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @*@Html.DropDownListFor(model => model.Services, Model.Services, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                    @Html.DropDownListFor(model => model.Service_ID, new SelectList(Model.Services, "ServiceId", "ServiceName"), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Service_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Doctor_Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.DropDownListFor(model => model.Doctor_ID, new SelectList(Model.Doctor_Name, "DoctorID", "FullName"), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Doctor_ID, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
                     @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-3" })
                     @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row ">
-        <div class="col-md-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Symptoms, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.TextAreaFor(model => model.Symptoms, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Symptoms, "", new { @class = "text-danger" })
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Symptoms, htmlAttributes: new { @class = "control-label col-md-3" })
+                    @Html.TextAreaFor(model => model.Symptoms, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Symptoms, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-    </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -83,12 +83,29 @@
             </div>
         </div>
     </div>
-        }
+}
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $("#Service_ID").change(function () {
+        var serviceID = $(this).val();
+        // make an AJAX call to the server to get the states for the selected country
+        $.ajax({
+            url: '/Home/GetDoctors?serviceId=' + serviceID,
+            type: 'POST',
+            success: function (result) {
+                debugger;
+                $("#Doctor_ID").empty();
+                // clear the options in the "State" dropdown list
+                // add the new options returned from the server
+                $.each(result, function (index, value) {
+                    $("#Doctor_ID").append($("<option></option>").val(value.DoctorID).text(value.FullName));
+                });
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+            }
+        });
+    });
+</script>

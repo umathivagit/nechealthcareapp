@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using com.necsws.healthcareportal.EDMX;
-using com.necsws.healthcareportal.Models;
+using training.healthcareportal.EDMX;
+using training.healthcareportal.Models;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Security;
-using System.Data.Entity.Core.Objects;
-using System.Net.Mail;
-using System.Net;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace com.necsws.healthcareportal.Controllers
+namespace training.healthcareportal.Controllers
 {
     [AllowAnonymous]
     public class LoginController : Controller
@@ -42,14 +39,22 @@ namespace com.necsws.healthcareportal.Controllers
                 //var patientid = Session["patientInfo"];
                 int PatientId = SavePatientID(model.UserName);
                 FormsAuthentication.SetAuthCookie(model.UserName, false);
-                TempData["patientId"] = PatientId;
-                return RedirectToAction("Index", "Home", new { Patientid = PatientId });
+
+                string EncryptedPatientId = EncryptPassword.EncryptString("b14ca5898a4e4133bbce2ea2315a1916", PatientId);
+                Session["patientId"] = PatientId;
+
+                TempData["userName"] = PatientNameById(PatientId);
+                TempData.Keep();
+                return RedirectToAction("Index", "Home", new { Patientid = EncryptedPatientId });
             }
             else if (EncryptPassword.ValidatePassword(model.Password,currentAccount.Password) && currentAccount.Role_ID == 3)
             {
                 int DoctorId = SaveDoctorID(model.UserName);
                 FormsAuthentication.SetAuthCookie(model.UserName, false);
-                return RedirectToAction("DoctorPage", "DoctorRegistration", new { Doctorid = DoctorId });
+                //TempData["doctorId"] = DoctorId;
+                string EncryptedDoctorId =  EncryptPassword.EncryptString("b14ca5898a4e4133bbce2ea2315a1916",DoctorId);
+
+                return RedirectToAction("DoctorPage", "DoctorRegistration", new { Doctorid = EncryptedDoctorId } );
             }
             else
             {
@@ -76,7 +81,6 @@ namespace com.necsws.healthcareportal.Controllers
         public ActionResult ForgetPassword(ForgotPassword password)
         {
             var objUsr = healthCareDB.Users.Where(x => x.Username == password.EmailId).FirstOrDefault();
-            TempData["username"] = objUsr.Username;
             if (objUsr == null)
             {
                 TempData["UserFail"] = "Username is not available";
@@ -85,9 +89,11 @@ namespace com.necsws.healthcareportal.Controllers
             else
             {
                 TempData["UserMatch"] = "Reset Link Sent to the Email Id";
+                TempData["username"] = objUsr.Username;
                 ForgotPasswordEmailToUser(objUsr.Username).Wait(3000);
 
             }
+            
             return View();
         }
 
@@ -179,7 +185,7 @@ namespace com.necsws.healthcareportal.Controllers
             }
                 if (!string.IsNullOrEmpty(username))
                 {
-                var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEYS");
+                var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("mustansirsabir53@gmail.com", "Mustansir Sabir");
                 var subject = "Password Recovery";
@@ -192,6 +198,32 @@ namespace com.necsws.healthcareportal.Controllers
                 var response = await client.SendEmailAsync(msg);
                 
                 }
+        }
+
+
+        private static string PatientNameById(int Id)
+        {
+            string patientName = null;
+            string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " select FullName from portal.Patient where PatientID=" + Id;
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            patientName = sdr["FullName"].ToString();
+                        }
+                    }
+                    con.Close();
+                }
+            }
+
+            return patientName;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model training.healthcareportal.Models.Membership
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,31 +28,17 @@
                     </div>
                     @if (User.Identity.IsAuthenticated)
                     {
-                            <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                                    <li>@Html.ActionLink("Make Appointment", "MakeAppointment", "Home")</li>
-                                    <li>@Html.ActionLink("View Services", "ViewServices", "ViewServices")</li>
-                                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-                                    <li> <a> Dear - @User.Identity.Name </a> </li>
-
-                                </ul>
-                            </div>
-                        @*else if (User.IsInRole("Doctor"))
-                        {
-                            <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-                                    <li> <a> Dear - @User.Identity.Name </a> </li>
-
-                                </ul>
-                            </div>
-                        }*@
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                                <li>@Html.ActionLink("Make Appointment", "MakeAppointment", "Home")</li>
+                                <li>@Html.ActionLink("View Services", "ViewServices", "ViewServices")</li>
+                                <li> <a> Dear - @TempData["userName"] </a> </li>
+                                <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                            </ul>
+                        </div>
                     }
                     else
                     {
@@ -75,16 +62,15 @@
 
                     }
                 </div>
-                        </div>
-    </div>
-</div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
+            </div>
         </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
 </html>

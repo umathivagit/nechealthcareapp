@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.necsws.healthcareportal.EDMX
+namespace training.healthcareportal.EDMX
 {
     using System;
     

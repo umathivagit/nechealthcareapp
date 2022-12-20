@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace com.necsws.healthcareportal.Controllers
+namespace training.healthcareportal.Controllers
 {
     public class PatientProfileController : Controller
     {

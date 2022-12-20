@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace com.necsws.healthcareportal
+namespace training.healthcareportal
 {
     public class FilterConfig
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace com.necsws.healthcareportal.Models
+namespace training.healthcareportal.Models
 {
     public class ViewServices
     {

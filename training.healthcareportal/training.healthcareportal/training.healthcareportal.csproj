@@ -156,6 +156,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\DoctorRegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\ViewDoctorController.cs" />
     <Compile Include="Controllers\ViewServicesController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
@@ -220,6 +221,9 @@
     <Compile Include="EDMX\sp_ViewPatientAppointment_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDMX\Status.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDMX\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -231,6 +235,7 @@
     <Compile Include="Models\EncryptPassword.cs" />
     <Compile Include="Models\ForgotPassword.cs" />
     <Compile Include="Models\RandomGenerator.cs" />
+    <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Models\ViewServices.cs" />
     <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\PatientModel.cs" />
@@ -594,6 +599,10 @@
     <Content Include="Views\Shared\_ForgotPass.cshtml" />
     <Content Include="Views\Shared\_ForgotFail.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
+    <Content Include="Views\Status\ApproveStatus.cshtml" />
+    <Content Include="Views\Status\ConfirmedAppointments.cshtml" />
+    <Content Include="Views\Home\MakeAppointmentOfDoctor.cshtml" />
+    <Content Include="Views\Status\UpcomingAppointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,19 @@
     <title>@ViewBag.Title - Healthcare Portal - Clinical</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-inverse {
+            background-color: #FFDFBF !important;
+        }
+
+        .navbar-inverse .navbar-nav > li > a {
+            color: black;
+        }
+        
+        .navbar-collapse{
+            position: relative !important;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,13 +29,15 @@
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="navbar-collapse collapse">
+                    <div class="navbar-collapse collapse position-relative">
                         <ul class="nav navbar-nav">
                             <li>@Html.ActionLink("Home", "DoctorPage", "DoctorRegistration")</li>
+                            <li>@Html.ActionLink("Today's Appointments","ConfirmedAppointments","Status")</li>
+                            <li>@Html.ActionLink("Upcoming Appointments","UpcomingAppointments","Status")</li>
                             @*<li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                             <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-                            <li> <a> Dear - @User.Identity.Name </a> </li>
+                            <li> <a> Welcome Back! - Dr. @Session["DoctorUser"] </a> </li>
                         </ul>
                     </div>
                 }

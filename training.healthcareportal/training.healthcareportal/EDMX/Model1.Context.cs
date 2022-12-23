@@ -40,6 +40,7 @@ namespace training.healthcareportal.EDMX
         public DbSet<Role> Roles { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Status> Status { get; set; }
     
         public virtual int sp_NewDoctorRegistration(Nullable<int> iMA_No, string fullName, Nullable<System.DateTime> dOB, string gender, string email, Nullable<int> yearOfExperience, string password, Nullable<int> qualification_id, Nullable<int> service_id, Nullable<int> role_id, string username)
         {

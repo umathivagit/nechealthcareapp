@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Web.Security;
 
 namespace training.healthcareportal.Controllers
 {
@@ -18,6 +20,7 @@ namespace training.healthcareportal.Controllers
         
         public ActionResult Index()
         {
+            var patientId = Session["patientId"];
             return View();
         }
 
@@ -38,7 +41,7 @@ namespace training.healthcareportal.Controllers
         [HttpPost]
         public ActionResult MakeAppointment(AppointmentViewModel makeAppointment)
         {
-            Membership membership = (Membership)Session["userInfo"];
+            Models.Membership membership = (Models.Membership)Session["userInfo"];
             int patientID = (int)Session["patientId"];
             //var patientId = Session["patientInfo"];
                 Appointment newAppointment = new Appointment();
@@ -48,7 +51,8 @@ namespace training.healthcareportal.Controllers
                 newAppointment.Time = makeAppointment.Time;
                 newAppointment.Date = makeAppointment.Date;
                 newAppointment.Symptoms = makeAppointment.Symptoms;
-                newAppointment.Appointment_Status = "New";
+                newAppointment.Status = makeAppointment.StatusId;
+                //newAppointment.Appointment_Status = "New";
                 newAppointment.Created_At = DateTime.Now;
                 newAppointment.Modified_At = DateTime.Now;
                 healthCareDB.Appointments.Add(newAppointment);
@@ -70,6 +74,8 @@ namespace training.healthcareportal.Controllers
             AppointmentViewModel currentAppointmentViewModel = new AppointmentViewModel();
             currentAppointmentViewModel.Patient_Name = PatientNameById(patientID);
             currentAppointmentViewModel.Services = servicelist;
+
+            currentAppointmentViewModel.StatusId = 1;
             currentAppointmentViewModel.Doctor_Name = Enumerable.Empty<DoctorModel>();
 
             //new AppointmentViewModel().Services = servicelist;
@@ -85,30 +91,83 @@ namespace training.healthcareportal.Controllers
             return Json(doctors, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult MakeAppointmentOfDoctor(int Id)
+        {
+            AppointmentViewModel appointmentByDoctor = new AppointmentViewModel();
+            //Here we have taken two session which will populate the services id and patient id from the View Services controller
+            int patientID = (int)Session["patientId"];
+            int serviceid = (int)Session["serviceId"];
+
+            //So here we will take the service name from the id which we got from the View Doctors controller
+            var service = GetServiceById(serviceid);
+            List<DoctorModel> doctorName = (List<DoctorModel>)Session["doctorName"];
+            
+            //And we will populate that service here
+            appointmentByDoctor.Services = service;
+
+            foreach (var doctor in doctorName)
+            {
+                if (doctor.DoctorID == Id)
+                {
+                    appointmentByDoctor.Doctor_Name = GetDoctorById(doctor.DoctorID);
+                }
+            }
+            //Populating the doctorname from the session of view doctors controller
+
+            appointmentByDoctor.StatusId = 1;
+            appointmentByDoctor.Patient_Name = PatientNameById(patientID);
+            return View(appointmentByDoctor);
+        }
+
+        [HttpPost]
+        public ActionResult MakeAppointmentOfDoctor(AppointmentViewModel makeAppointment)
+        {
+            Models.Membership membership = (Models.Membership)Session["userInfo"];
+            int patientID = (int)Session["patientId"];
+            //var patientId = Session["patientInfo"];
+            Appointment newAppointment = new Appointment();
+            newAppointment.Patient_ID = patientID;
+            newAppointment.Service_ID = makeAppointment.Service_ID;
+            newAppointment.Doctor_ID = makeAppointment.Doctor_ID;
+            newAppointment.Time = makeAppointment.Time;
+            newAppointment.Date = makeAppointment.Date;
+            newAppointment.Symptoms = makeAppointment.Symptoms;
+            newAppointment.Status = makeAppointment.StatusId;
+            //newAppointment.Appointment_Status = "New";
+            newAppointment.Created_At = DateTime.Now;
+            newAppointment.Modified_At = DateTime.Now;
+            healthCareDB.Appointments.Add(newAppointment);
+            healthCareDB.SaveChanges();
+            TempData["SuccessNotification"] = "Appointment Created Successfully!";
+            //ViewBag.Name = emailData.FirstName + " " + emailData.LastName;
+            //SendEmail(membership.UserName, makeAppointment.Patient_Name, makeAppointment.Date, makeAppointment.Time).Wait(100);
+            return RedirectToAction("Index", "Home");
+        }
 
         private static string PatientNameById(int Id)
         {
-            string patientName = null;
-            string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(constr))
+        string patientName = null;
+        string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(constr))
+        {
+            string query = " select FullName from portal.Patient where PatientID="+Id;
+            using (SqlCommand cmd = new SqlCommand(query))
             {
-                string query = " select FullName from portal.Patient where PatientID="+Id;
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                con.Open();
+                using (SqlDataReader sdr = cmd.ExecuteReader())
                 {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    while (sdr.Read())
                     {
-                        while (sdr.Read())
-                        {
-                            patientName = sdr["FullName"].ToString();
-                        }
+                        patientName = sdr["FullName"].ToString();
                     }
-                    con.Close();
                 }
+                con.Close();
             }
+        }
 
-            return patientName;
+        return patientName;
         }
         private static List<ServiceModel> PopulateServices()
         {
@@ -169,7 +228,7 @@ namespace training.healthcareportal.Controllers
             return items;
         }
 
-        static async Task SendEmail(string patientEmail, string patientName, string date, TimeSpan time)
+        public static async Task SendEmail(string patientEmail, string patientName, string date, TimeSpan time)
         {
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             var client = new SendGridClient(apiKey);
@@ -180,6 +239,61 @@ namespace training.healthcareportal.Controllers
             var htmlContent = "<strong>Dear " + patientName + " We would like to confirm your appointment for " + date + " on " + time + " with us, please be 15 mins prior to the appointment time</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
+        }
+
+        private static List<ServiceModel> GetServiceById(int id)
+        {
+            var serviceModel = new List<ServiceModel>();
+            string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " select Service_ID,Service_Name from portal.Services where Service_ID =" + id;
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            serviceModel.Add(new ServiceModel
+                            {
+                                ServiceId = Convert.ToInt32(sdr["Service_ID"]),
+                                ServiceName = sdr["Service_Name"].ToString()
+                            });
+                        }
+                    }
+                    return serviceModel;
+                }
+            }
+        }
+
+
+        private static List<DoctorModel> GetDoctorById(int id)
+        {
+            var doctorModel = new List<DoctorModel>();
+            string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " select DoctorID,FullName from portal.Doctor where DoctorID =" + id;
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            doctorModel.Add(new DoctorModel
+                            {
+                                DoctorID = Convert.ToInt32(sdr["DoctorID"]),
+                                FullName = sdr["FullName"].ToString()
+                            });
+                        }
+                    }
+                    return doctorModel;
+                }
+            }
         }
 
     }

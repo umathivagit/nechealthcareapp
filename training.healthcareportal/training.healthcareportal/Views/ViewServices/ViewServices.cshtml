@@ -4,67 +4,42 @@
 
 @{
     ViewBag.Title = "ViewServices";
+
 }
 
-<h2 style="text-align:center">View the Services</h2>
+<h2 style="text-align:center; font-family:Papyrus;font-size:48px;">View the Services</h2>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bootstrap Example</title>
     @Styles.Render("~/Content/css")
+
+<style>
+/*    #image1 {
+        background-image: url(https://th.bing.com/th/id/OIP._EwHANkTrSPvl4RdfdFmawAAAA?pid=ImgDet&w=180&h=180&rs=1) !important;
+        background-repeat: no-repeat;
+        background-size: 200px;
+        background-position: bottom !important;
+        -webkit-background-clip: initial !important;
+        color: transparent !important;
+    }*/
+</style>
 </head>
 <body>
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Service_Name</th>
-                <th scope="col">Description</th>
-
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+        <div class="row" style="display: flex; text-align:center; flex-wrap:wrap;">
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@Html.ActionLink(@item.ServiceName, "ViewDoctorsInfo", "ViewDoctor", new { Serviceid = item.ServiceId }, null) </td>
-                    <td>@item.Description</td>
-                </tr>
-            }
-            @*<tr>
-                    <td>@Html.ActionLink("Physician", "Physician", "ViewServices")</td>
-                    <td>Doctor related to fever,viral infections</td>
+                <div class="col" style="padding: 100px; background-color: white; width: 350px;">
+                    <img src="~/img/@item.PhotoPath" alt="Dental Image" />
+                    <strong style="font-family:Papyrus;font-size:36px;">@Html.ActionLink(@item.ServiceName, "ViewDoctorsInfo", "ViewDoctor", new { Serviceid = item.ServiceId }, new { @class = "text-success", @style = "text-decoration: none !important" })</strong>
 
-                </tr>
-                <tr>
-                    <td>@Html.ActionLink("Pediatrician", "Pediatrician", "ViewServices")</td>
-                    <td>Kid's Doctor'</td>
+                </div>
+             }
 
-                </tr>
-                <tr>
-                    <td>@Html.ActionLink("Neuro","Neuro", "ViewServices")</td>
-                    <td>Doctor of Brain nerves</td>
-                </tr>
-                <tr>
-                    <td>@Html.ActionLink("Dentist", "Dentist", "ViewServices")</td>
-                    <td>Doctor of Dental problems</td>
-                </tr>
-                <tr>
-                    <td>@Html.ActionLink("ENT", "ENT", "ViewServices")</td>
-                    <td>Doctor of thyroid issues</td>
-                </tr>
-                <tr>
-                    <td>@Html.ActionLink("Cardiologist", "Cardiologist", "ViewServices")</td>
-                    <td>Doctor of Heart problems</td>
-                </tr>
-                <tr>
-                    <td>@Html.ActionLink("Ayurvedic", "Ayurvedic", "ViewServices")</td>
-                    <td>Doctor of herbs</td>
-                </tr>*@
+        </div>
 
-
-        </tbody>
-    </table>
-
+    </div>
 
     <p>
         @Html.ActionLink("Back to List", "Index")

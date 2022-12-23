@@ -34,7 +34,7 @@
                 <td>@item.FullName</td>
                 <td>@item.Gender</td>
                 <td>@item.YearsOfExperience</td>
-                <td>@Html.ActionLink("Create Appointment","MakeAppointment","Home")</td>
+                <td>@Html.ActionLink("Create Appointment","MakeAppointmentOfDoctor","Home",new {Id = item.DoctorID}, null)</td>
             </tr>
             }
             @*<tr>

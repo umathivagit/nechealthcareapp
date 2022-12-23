@@ -43,18 +43,21 @@ namespace training.healthcareportal.Controllers
                 string EncryptedPatientId = EncryptPassword.EncryptString("b14ca5898a4e4133bbce2ea2315a1916", PatientId);
                 Session["patientId"] = PatientId;
 
-                TempData["userName"] = PatientNameById(PatientId);
-                TempData.Keep();
-                return RedirectToAction("Index", "Home", new { Patientid = EncryptedPatientId });
+                Session["User"]= PatientNameById(PatientId);
+                return RedirectToAction("Index", "Home");
             }
             else if (EncryptPassword.ValidatePassword(model.Password,currentAccount.Password) && currentAccount.Role_ID == 3)
             {
                 int DoctorId = SaveDoctorID(model.UserName);
                 FormsAuthentication.SetAuthCookie(model.UserName, false);
+
+                Session["doctorId"] = DoctorId;
                 //TempData["doctorId"] = DoctorId;
                 string EncryptedDoctorId =  EncryptPassword.EncryptString("b14ca5898a4e4133bbce2ea2315a1916",DoctorId);
 
-                return RedirectToAction("DoctorPage", "DoctorRegistration", new { Doctorid = EncryptedDoctorId } );
+                Session["DoctorUser"] = DoctorNameById(DoctorId);
+                Session["encryptedDoctorId"] = EncryptedDoctorId;
+                return RedirectToAction("DoctorPage", "DoctorRegistration");
             }
             else
             {
@@ -224,6 +227,31 @@ namespace training.healthcareportal.Controllers
             }
 
             return patientName;
+        }
+
+        private static string DoctorNameById(int Id)
+        {
+            string DoctorName = null;
+            string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = " select FullName from portal.Doctor where DoctorID=" + Id;
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            DoctorName = sdr["FullName"].ToString();
+                        }
+                    }
+                    con.Close();
+                }
+            }
+
+            return DoctorName;
         }
     }
 }

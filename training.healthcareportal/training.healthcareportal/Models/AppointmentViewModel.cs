@@ -9,6 +9,8 @@ namespace training.healthcareportal.Models
 {
     public class AppointmentViewModel
     {
+        public int AppointmentId { get; set; }
+
         [Display(Name ="Patient Name")]
         public string Patient_Name { get; set; }
 
@@ -16,6 +18,8 @@ namespace training.healthcareportal.Models
         public string Phone_Number { get; set; }
 
         public List<ServiceModel> Services { get; set; }
+
+        public string Email { get; set; }
 
         public int Service_ID { get; set; } 
 
@@ -31,6 +35,10 @@ namespace training.healthcareportal.Models
         public TimeSpan Time { get; set; }
 
         public string Symptoms { get; set; }
+
+        public int StatusId { get; set; }
+
+        public List<StatusModel> Status { get; set; }
 
         public string Gender { get; set; }
         public string HealthInsuranceID { get; set; }

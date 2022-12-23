@@ -1,0 +1,104 @@
+﻿@model training.healthcareportal.Models.AppointmentViewModel
+
+@{
+    ViewBag.Title = "ApproveStatus";
+}
+
+<h2>Approve/Reject Status</h2>
+
+<h3>@Html.Partial("_Success")</h3>
+@using (Html.BeginForm())
+{
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dd>
+                <input type="hidden" value="@Model.AppointmentId" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient_Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patient_Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone_Number)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phone_Number)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Symptoms)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Symptoms)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HealthInsuranceID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HealthInsuranceID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BloodGroup)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BloodGroup)
+            </dd>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmergencyContact)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmergencyContact)
+            </dd>
+
+        </dl>
+
+        @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.Status, "StatusId", "StatusName"), htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Confirm" class="btn btn-success" />
+
+    </div>
+}
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -1,5 +1,4 @@
-﻿@model training.healthcareportal.Models.Membership
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,6 +6,16 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+<style>
+    .navbar-inverse {
+        background-color: #f19946 !important;
+    }
+    .navbar-inverse .navbar-nav > li > a {
+        color: #a94442;
+        text-decoration: none !important
+    }
+</style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +44,7 @@
                                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                                 <li>@Html.ActionLink("Make Appointment", "MakeAppointment", "Home")</li>
                                 <li>@Html.ActionLink("View Services", "ViewServices", "ViewServices")</li>
-                                <li> <a> Dear - @TempData["userName"] </a> </li>
+                                <li> <a> Dear - @Session["User"] </a> </li>
                                 <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
                             </ul>
                         </div>

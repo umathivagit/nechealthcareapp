@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="08f3e74495fa46829bd7fbe8a063ff49" Name="Diagram1">
+      <Diagram DiagramId="08f3e74495fa46829bd7fbe8a063ff49" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="Model.Appointment" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Doctor" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Doctor_Qualification" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
@@ -30,6 +30,8 @@
         <AssociationConnector Association="Model.FK__PatientDo__Patie__75A278F5" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Payments__Patien__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__User__Role_ID__6383C8BA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.Status" Width="1.5" PointX="8.375" PointY="5.875" />
+        <AssociationConnector Association="Model.FK_Appointment_Status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

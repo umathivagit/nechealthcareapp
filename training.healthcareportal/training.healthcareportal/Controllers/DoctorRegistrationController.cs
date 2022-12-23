@@ -14,15 +14,17 @@ namespace training.healthcareportal.Controllers
     {
         HealthCareDBContext2 healthCareDB = new HealthCareDBContext2();
 
-        [OutputCache(Duration =300, VaryByParam ="none")]
-        public ActionResult DoctorPage(string Doctorid)
+        //[OutputCache(Duration =300, VaryByParam ="none")]
+        public ActionResult DoctorPage()
         {
-            string DecryptedDoctorId = EncryptPassword.DecryptString("b14ca5898a4e4133bbce2ea2315a1916", Doctorid);
-            //int DoctorID = (int)TempData["doctorId"];
-            //var DoctorId = EncryptPassword.DecryptString("b14ca5898a4e4133bbce2ea2315a1916", Doctorid.ToString());
+            string EncryptedDoctorId = (string)Session["encryptedDoctorId"];
+            string DecryptedDoctorId = EncryptPassword.DecryptString("b14ca5898a4e4133bbce2ea2315a1916", EncryptedDoctorId);
+            
             List<AppointmentViewModel> appointments = PopulateAppointmentByDoctorID(Convert.ToInt32(DecryptedDoctorId));
             return View(appointments);
         }
+
+
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -133,16 +135,17 @@ namespace training.healthcareportal.Controllers
                         {
                             items.Add(new AppointmentViewModel
                             {
+                                AppointmentId = Convert.ToInt32(sdr["Appointment_ID"]),
                                 Patient_Name = sdr["FullName"].ToString(),
                                 Gender = sdr["Gender"].ToString(),
                                 HealthInsuranceID = sdr["HealthInsuranceID"].ToString(),
                                 BloodGroup = sdr["BloodGroup"].ToString(),
                                 EmergencyContact = sdr["EmergencyContactPersonDetails"].ToString(),
-                                Date= sdr["Date"].ToString(),
+                                Date = sdr["Date"].ToString(),
                                 Time = (TimeSpan)sdr["Time"],
                                 Symptoms = sdr["Symptoms"].ToString(),
-                                
-                            });
+                                StatusId= Convert.ToInt32(sdr["Status"])
+                            }) ;
                         }
                     }
                     con.Close();

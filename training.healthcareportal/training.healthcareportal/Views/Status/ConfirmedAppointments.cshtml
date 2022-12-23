@@ -1,0 +1,107 @@
+﻿@model IEnumerable<training.healthcareportal.Models.AppointmentViewModel>
+
+@{
+    ViewBag.Title = "Confirmed Appointments";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<h2>Today's Appointments</h2>
+
+<table class="table table-responsive table-hover table-striped table-bordered bg-success" id="approved">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Symptoms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HealthInsuranceID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BloodGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmergencyContact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (DateTime.Today == Convert.ToDateTime(item.Date))
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Symptoms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthInsuranceID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BloodGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyContact)
+                </td>
+                <td>
+                    @if (item.StatusId == 2)
+                    {
+                        <span class="text-success"><strong>Approved</strong></span>
+                    }
+
+                </td>
+                <td>
+                    <img src="~/img/checked.png" height="30" width="30" />
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () { $('#approved').DataTable(); });
+</script>
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+}

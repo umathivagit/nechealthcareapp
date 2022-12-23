@@ -36,7 +36,7 @@ namespace training.healthcareportal.Controllers
             string constr = ConfigurationManager.ConnectionStrings["HealthCareDBContext1"].ConnectionString;
             using (SqlConnection con = new SqlConnection(constr))
             {
-                string query = " SELECT Service_Name, Service_ID,Description FROM portal.Services";
+                string query = " SELECT Service_Name, Service_ID,Description, PhotoPath FROM portal.Services";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -49,7 +49,8 @@ namespace training.healthcareportal.Controllers
                             {
                                 ServiceName = sdr["Service_Name"].ToString(),
                                 ServiceId = Convert.ToInt32(sdr["Service_ID"]),
-                                Description = sdr["Description"].ToString()
+                                Description = sdr["Description"].ToString(),
+                                PhotoPath = sdr["PhotoPath"].ToString()
                             });
                         }
                     }

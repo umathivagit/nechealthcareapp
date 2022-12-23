@@ -21,12 +21,13 @@ namespace training.healthcareportal.EDMX
         public System.TimeSpan Time { get; set; }
         public string Date { get; set; }
         public string Symptoms { get; set; }
-        public string Appointment_Status { get; set; }
         public System.DateTime Created_At { get; set; }
         public Nullable<System.DateTime> Modified_At { get; set; }
+        public Nullable<int> Status { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual Service Service { get; set; }
+        public virtual Status Status1 { get; set; }
     }
 }

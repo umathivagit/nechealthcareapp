@@ -12,20 +12,16 @@ namespace training.healthcareportal.EDMX
     using System;
     using System.Collections.Generic;
     
-    public partial class Service
+    public partial class Status
     {
-        public Service()
+        public Status()
         {
             this.Appointments = new HashSet<Appointment>();
-            this.Doctor_Services = new HashSet<Doctor_Services>();
         }
     
-        public int Service_ID { get; set; }
-        public string Service_Name { get; set; }
-        public string Description { get; set; }
-        public string PhotoPath { get; set; }
+        public int Id { get; set; }
+        public string StatusName { get; set; }
     
         public virtual ICollection<Appointment> Appointments { get; set; }
-        public virtual ICollection<Doctor_Services> Doctor_Services { get; set; }
     }
 }
